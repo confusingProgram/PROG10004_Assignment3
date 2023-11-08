@@ -4,7 +4,7 @@ class Application:
     def __init__(self):
         self.accounts = ["1"]
     
-    def show_main_menu(self):
+    def show_main_menu(self, bank):
         while True:
             print("Welcome to main menu! Please select an option:")
             print("[1] Select Account")
@@ -12,9 +12,10 @@ class Application:
             print("[3] Exit Application")
             choice = input("Please enter an option: ").strip()
             if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
-                self.select_account()
+                self.select_account(bank)
                 pass
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
+                self.open_account(bank)
                 pass
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break
@@ -22,22 +23,18 @@ class Application:
                 print("Please enter valid number.")
                 print("")
 
-    def select_account(self):
+    def select_account(self, bank):
         while True:
             print("------ Account Selection ------")
             id = input("Please enter the account number, or 0 to exit: ").strip()
-            for account in self.accounts:
-                #if id == account._id:
-                if id == account:
-                    print("Account found!")
-                    self.show_account_menu(id)
+            account = bank.search_account(id)
             if id == "0":
                 break
-            else:
-                print("Account number not found!")
-                print("Please enter valid number.")
+            elif account == "null":
+                print("Please enter valid account number.")
+                continue
 
-    def open_account(self):
+    def open_account(self, bank):
         while True:
             print("------ Account Creation ------")
             print("Please select an option:")
@@ -53,8 +50,7 @@ class Application:
                         break
                     else:
                         print("Name cannot be blank.")
-                #self.create_chequing(open_id(), name)
-                pass
+                bank.open_account("c", name)
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 name = ""
                 while True:
@@ -63,18 +59,12 @@ class Application:
                         break
                     else:
                         print("Name cannot be blank.")
-                #self.create_savings(open_id() name)
-                pass
+                bank.open_account("s", name)
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break
             else:
                 print("Please enter valid number.")
                 print("")
-
-    
-
-            
-
 
     def show_account_menu(self, id):
         for account in self.accounts:

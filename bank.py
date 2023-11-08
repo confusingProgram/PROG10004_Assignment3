@@ -11,13 +11,14 @@ class Bank:
             id = id + 1
             
         if type.lower() == "c":
-            #Chequing_Account(id, name)
+            #self._accounts.append(Chequing_Account(id, name))
             pass
         elif type.lower == "s":
-            #Saving_Account(id, name)
+            #self._accounts.append(#Saving_Account(id, name))
             pass
 
     def search_account(self, acc_num):
         for account in self._accounts:
             if acc_num == account._account_number:
                 return account
+        return "null"
