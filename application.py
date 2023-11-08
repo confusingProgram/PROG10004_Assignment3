@@ -1,3 +1,5 @@
+from bank import Bank
+
 class Application:
     def __init__(self):
         self.accounts = ["1"]
@@ -44,10 +46,24 @@ class Application:
             print("[3] Exit Creation")
             choice = input("Please enter an option: ").strip()
             if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
-                #self.create_chequing(open_id())
+                name = ""
+                while True:
+                    name = input("Please enter a name: ")
+                    if name != "":
+                        break
+                    else:
+                        print("Name cannot be blank.")
+                #self.create_chequing(open_id(), name)
                 pass
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
-                #self.create_savings(open_id())
+                name = ""
+                while True:
+                    name = input("Please enter a name: ")
+                    if name != "":
+                        break
+                    else:
+                        print("Name cannot be blank.")
+                #self.create_savings(open_id() name)
                 pass
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break
@@ -55,12 +71,7 @@ class Application:
                 print("Please enter valid number.")
                 print("")
 
-    def open_id(self):
-        id = 1
-        while True:
-            if self.accounts[id-1]._id != id:
-                return id
-            id = id + 1
+    
 
             
 
