@@ -1,5 +1,5 @@
-#from chequing_account import Chequing_Account
-#from savings_account import Savings_Account
+from chequing_account import ChequingAccount
+from savings_account import SavingsAccount
 
 class Bank:
     def __init__(self, bank_name):
@@ -14,10 +14,10 @@ class Bank:
             id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
             
         if type.lower() == "c":
-            #self._accounts.append(Chequing_Account(id, name))
+            self._accounts.append(ChequingAccount(id, name))
             pass
         elif type.lower == "s":
-            #self._accounts.append(#Saving_Account(id, name))
+            self._accounts.append(SavingsAccount(id, name))
             pass
 
     def search_account(self, acc_num):
