@@ -5,6 +5,8 @@ class Bank:
     def __init__(self, bank_name):
         self._bank_name = bank_name
         self._accounts = []
+        #self._accounts = [ChequingAccount(1, "Tim"), ChequingAccount(3, "Jane"), ChequingAccount(5, "Tom"),
+        #                            SavingsAccount(2, "Tim"), SavingsAccount(4, "Jane"), SavingsAccount(6, "Tom")]
 
     def open_account(self, type, name):
         id = 1 # This small block of code searches for an available account number when creating an account.
