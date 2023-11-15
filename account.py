@@ -27,3 +27,4 @@ class ChequingAccount(Account):
 
     def calculate_fee(self):
         return self.chequing_fee
+

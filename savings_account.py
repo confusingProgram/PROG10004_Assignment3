@@ -1,5 +1,6 @@
-import account
-class SavingsAccount(account):
+
+from account import Account
+class SavingsAccount(Account):
     def __init__(self, account_number, balance, interest_rate, minimum_balance):
         super().__init__(account_number, balance)
         self.interest_rate = interest_rate
