@@ -66,6 +66,39 @@ class Application:
                 print("Please enter valid option.")
                 print("")
 
+    def valid_number_check():
+        while True:
+            amount = input("Enter the amount or EXIT: ")
+            amount = amount.upper().trim()
+
+            if amount == "EXIT":
+                return ""
+
+            if("-") in amount or amount.count(".") > 1: # Restarts if negative detected or if too many decimals
+                print("Please enter a positive, non-zero number.")
+                continue
+
+            valid = True
+            array = amount.split(".") 
+            for str in array: # Detects if there are any non-digits
+                if str.isdigit() == False:
+                    valid = False
+                    break
+
+            if valid == False: # Restarts if any non-digits
+                print("Please enter a positive, non-zero number.")
+                continue
+            
+            if len(array) > 1: #Assuming the user inserts a price with a decimal value
+                if len(array[1]) > 2: # Restarts if there are too many decimals
+                    print("Please limit the amount to 2 decimal places.")
+                    continue
+
+            if valid == True: # If correct, proceeds
+                return float(amount)
+            else: # Final catch statement just in case
+                print("Please enter a positive, non-zero number.")
+
     def show_account_menu(self, account):
         while True:
             print("Welcome to account menu! Please select an option:")
@@ -82,9 +115,11 @@ class Application:
                     print(f"Balance: -${account.get_current_balance()}.")
                     
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
-                account.deposit()
+                if self.valid_number_check() != "":
+                    account.deposit()
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
-                account.withdraw()
+                if self.valid_number_check() != "":
+                    account.withdraw()
             elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
                 break
             else:
