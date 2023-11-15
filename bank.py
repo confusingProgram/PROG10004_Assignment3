@@ -25,3 +25,13 @@ class Bank:
             if acc_num == str(account.get_account_number):
                 return account
         return ""
+    
+    def sort_account(self): # Sorts accounts by account_number from least to greatest
+        new_account_list = []
+        for account in self._accounts:
+            new_index = len(self._accounts)-1
+            for compare_account in self._accounts:
+                if account.get_account_number < compare_account.get_account_number:
+                    new_index = new_index - 1
+            new_account_list[new_index] = account
+        self._accounts = new_account_list
