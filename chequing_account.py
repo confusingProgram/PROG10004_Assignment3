@@ -1,6 +1,6 @@
 from account import Account
+class ChequingAccount(account):
 
-class ChequingAccount(Account):
     def __init__(self, account_number, balance, chequing_fee, overdraft_limit):
         super().__init__(account_number, balance)
         self.chequing_fee = chequing_fee
@@ -11,3 +11,5 @@ class ChequingAccount(Account):
             self.balance -= amount
         else:
             print("Transaction cannot be completed.")
+
+
