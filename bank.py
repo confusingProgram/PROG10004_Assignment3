@@ -26,12 +26,15 @@ class Bank:
                 return account
         return ""
     
-    def sort_account(self): # Sorts accounts by account_number from least to greatest
+    def sort_account(self): # Sorts accounts by account_number from least to greatest.
         new_account_list = []
-        for account in self._accounts:
-            new_index = len(self._accounts)-1
+        for i in range(len(self._accounts)):
+            new_account_list.append("") # Creates "empty" new list which will house re-ordered accounts.
+
+        for account_A in self._accounts:
+            new_index = len(self._accounts)-1 # Account_A (account being checked) will be assumed to be last in new list.
             for compare_account in self._accounts:
-                if account.get_account_number < compare_account.get_account_number:
-                    new_index = new_index - 1
-            new_account_list[new_index] = account
+                if account_A.get_account_number < compare_account.get_account_number: # Account_A is compared to every other account in the pre-sorted list.
+                    new_index = new_index - 1 # If account_A has a lower account number than the account being compared, account_A will be placed earlier in sorted list.
+            new_account_list[new_index] = account_A # Once comparing is completed, account_A is added to sorted list according to their new index.
         self._accounts = new_account_list
