@@ -1,4 +1,5 @@
 class Account:
+
     def __init__(self, account_number, current_balance, account_holder_name, interset_rate):
         self._account_number = account_number
         self._current_balance =current_balance
@@ -39,8 +40,3 @@ class Account:
 
     def calculate_interest(self):
         return self._balance * self._interest_rate / 100
-
-
-
-
-
