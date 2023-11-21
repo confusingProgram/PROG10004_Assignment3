@@ -8,5 +8,6 @@ class ChequingAccount(Account):
     def withdraw(self, amount):
         if amount <= self.balance + self.overdraft_limit:
             self.balance -= amount
+            return True
         else:
-            print("Transaction cannot be completed.")
+            return amount - (self.balance + self._overdraft_limit)

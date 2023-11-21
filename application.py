@@ -7,6 +7,7 @@ class Application:
     def show_main_menu(self, bank):
         print(f"Thank you for using {bank._bank_name}!")
         while True:
+            bank.sort()
             print("------ Main Menu ------")
             print("[1] Select Account")
             print("[2] Open Account")
@@ -46,37 +47,42 @@ class Application:
 
             if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 while True: # Name check loop
+                    print("------ Name Entry ------")
                     name = input("Please enter your name or EXIT: ").strip()
                     if name == "":
                         print("Name cannot be blank.")
                         continue
                     break
-                while True:
-                    if name.upper() == "EXIT":
+                if name.upper() == "EXIT":
                         break
-                    print("Starting balance.")
+                while True:
+                    print("------ Starting Balance ------")
                     starting_balance = self.valid_number_check()
                     if starting_balance == "EXIT":
                         break
-                    print("Your chequing account was created!")
-                    bank.open_account("c", bank.create_new_id(), name, starting_balance) # Open chequing account.
+                    id = bank.create_new_id()
+                    print(f"Your chequing account with ID #{id} was created!")
+                    bank.open_account("c", id, name, starting_balance) # Open chequing account.
                     break
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 while True:
+                    print("------ Name Entry ------")
                     name = input("Please enter your name or EXIT: ").strip()
                     if name == "": # Checks if entry is null.
                         print("Name cannot be blank.")
                         continue
                     break
-                while True:
-                    if name.upper() == "EXIT":
+                if name.upper() == "EXIT":
                         break
+                while True:
+                    print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.")
                     starting_balance = self.valid_number_check()
                     if starting_balance == "EXIT":
                         break
-                    print("Your savings account was created!")
-                    bank.open_account("s", bank.create_new_id(), name, starting_balance) # Open chequing account.
+                    id = bank.create_new_id()
+                    print(f"Your savings account with ID #{id} was created!")
+                    bank.open_account("s", id, name, starting_balance) # Open chequing account.
                     break
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break # Exit
@@ -137,11 +143,27 @@ class Application:
                     print(f"Balance: -${account.get_current_balance()}.")
                     
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
-                if self.valid_number_check() != "":
-                    account.deposit()
+                amount = 0.00
+                while True:
+                    amount = self.valid_number_check()
+                    if amount == "EXIT":
+                        break
+                print(f"${amount} deposited!")
+                account.deposit(amount)
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
-                if self.valid_number_check() != "":
-                    account.withdraw()
+                amount = 0.00
+                while True:
+                    amount = self.valid_number_check()
+                    if amount == "EXIT":
+                        break
+                    result = account.withdraw(amount)
+                    if result != True:
+                        if type(account) is Bank.ChequingAccount:
+                            print(f"Withdraw rejected: ${result} past overdraft limit.")
+                        elif type(account) is Bank.SavingsAccount:
+                            print(f"Withdraw rejected: ${result} past overdraft limit.")
+                        continue
+                    break
             elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
                 break
             else:
