@@ -8,7 +8,7 @@ class Bank:
         #self._accounts = [ChequingAccount(1, "Tim"), ChequingAccount(3, "Jane"), ChequingAccount(5, "Tom"),
         #                            SavingsAccount(2, "Tim"), SavingsAccount(4, "Jane"), SavingsAccount(6, "Tom")]
 
-    def open_account(self, type, name):
+    def open_account(self, type, name, rate_of_interest, starting_balance, minimum_balance, overdraft_limit):
         id = 1 # This small block of code searches for an available account number when creating an account.
         while True:
             if self._accounts[id-1].get_account_number != id: # For example, it will check if the ID 1 is available, and check element 0.
@@ -16,10 +16,10 @@ class Bank:
             id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
             
         if type.lower() == "c":
-            self._accounts.append(ChequingAccount(id, name))
+            self._accounts.append(ChequingAccount(id, name, rate_of_interest, starting_balance, overdraft_limit))
             pass
         elif type.lower == "s":
-            self._accounts.append(SavingsAccount(id, name))
+            self._accounts.append(SavingsAccount(id, name, rate_of_interest, starting_balance, minimum_balance))
             pass
 
     def search_account(self, acc_num):
@@ -28,13 +28,13 @@ class Bank:
                 return account
         return ""
     
-    def sort_account(self): # Sorts accounts by account_number from least to greatest.
+    def sort(self): # Sorts accounts by account_number from least to greatest.
         new_account_list = []
         for i in range(len(self._accounts)):
             new_account_list.append("") # Creates "empty" new list which will house re-ordered accounts.
 
         for account_A in self._accounts:
-            new_index = len(self._accounts)-1 # Account_A (account being checked) will be assumed to be last in new list.
+            new_index = len(self._accounts) - 1 # Account_A (account being checked) will be assumed to be last in new list.
             for compare_account in self._accounts:
                 if account_A.get_account_number < compare_account.get_account_number: # Account_A is compared to every other account in the pre-sorted list.
                     new_index = new_index - 1 # If account_A has a lower account number than the account being compared, account_A will be placed earlier in sorted list.
