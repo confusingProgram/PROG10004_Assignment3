@@ -1,3 +1,4 @@
+import bank
 from bank import Bank
 
 class Application:
@@ -59,7 +60,7 @@ class Application:
                         break
                 while True:
                     print("------ Starting Balance ------")
-                    starting_balance = self.enter_amount()
+                    starting_balance = Application.enter_amount()
                     if starting_balance == 0:
                         break
                     id = bank.create_new_id()
@@ -79,7 +80,7 @@ class Application:
                 while True:
                     print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.")
-                    starting_balance = self.enter_amount()
+                    starting_balance = Application.enter_amount()
                     if starting_balance == 0:
                         break
                     id = bank.create_new_id()
@@ -97,9 +98,10 @@ class Application:
             amount = amount.strip()
 
             try:
-                if float(amount) == 0.00 or int(amount) == 0:
+                if float(amount) == 0.00:
                     return 0
             except:
+                print('HAHAH')
                 print("Please enter a positive, non-zero number.")
                 continue
             
@@ -136,50 +138,58 @@ class Application:
         while True:
             print("------ Account Menu ------")
             print(f"Welcome {account.get_account_holder_name()}! Please select an option:")
+            print("[0] Exit Account")
             print("[1] Check Balance")
             print("[2] Deposit")
             print("[3] Withdraw")
-            print("[4] Exit Account")
             choice = input("Please enter a number: ").strip()
 
-            if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
-                if account.get_current_balance() >= 0:
-                    print(f"Balance: ${account.get_current_balance()}.")
-                else:
-                    print(f"Balance: -${account.get_current_balance()}.")
                     
-            elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
-                amount = 0.00
-                while True:
-                    amount = self.enter_amount()
-                    if amount != "EXIT":
-                        print(f"${amount} deposited!")
-                        account.deposit(amount)
-                    break
-                
-            elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
-                amount = 0.00
-                while True:
-                    amount = self.enter_amount()
-                    if amount != "EXIT":
-                        result = account.withdraw(amount)
-                        if result != True:
-                            if type(account) is Bank.ChequingAccount:
-                                print(f"Withdraw rejected: ${result} past overdraft limit.")
-                            elif type(account) is Bank.SavingsAccount:
-                                print(f"Withdraw rejected: ${result} past minimum balance.")
-                            continue
-                        print(f"${amount} withdrawn!")
-                    break
-                    
-            elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
+            if choice == "[0]" or choice == "[0" or choice == "0]" or choice == "0":
                 break
+            elif choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
+                print(f"Current balance: {Application.format_amount(account.get_current_balance())}")
+            elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
+                while True:
+                    amount = Application.enter_amount()
+                    if amount != 0:
+                        account.deposit(amount)
+                        print(f"New balance: {Application.format_amount(account.get_current_balance())}")
+                    break
+            elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
+                while True:
+                    amount = Application.enter_amount()
+                    if amount != 0:
+                        result = account.withdraw(amount)
+                        if result != "True":
+                            if type(account) is bank.chequing_account.ChequingAccount:
+                                print(f"Withdraw rejected: {Application.format_amount(result)} past overdraft limit.")
+                            elif type(account) is bank.savings_account.SavingsAccount:
+                                print(f"Withdraw rejected: {Application.format_amount(result)} past minimum balance.")
+                            continue
+                        print(f"New balance: {Application.format_amount(account.get_current_balance())}")
+                    break
             else:
                 print("Please enter a valid number.")
                 print("")
 
     def run(self, bank):
         self.show_main_menu(bank)
+
+    @staticmethod
+    def format_amount(amount): # This method fixes the formatting involving negative numbers, dollar signs, and $x.x0, and converts to string
+        balance = str(amount)
+        balance = balance.replace("-", "-$") 
+        if balance.count("$") == 0:
+            balance = "$" + balance
+        temp = balance.split(".")
+        if len(temp) == 1:
+            balance += (".00")
+        elif len(temp) == 2:
+            if len(temp[1]) == 1:
+                balance += ("0")
+        return balance
+        
 
 b1 = Bank("TD")
 ap1 = Application()
