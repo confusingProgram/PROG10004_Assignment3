@@ -9,17 +9,17 @@ class Application:
         while True:
             bank.sort()
             print("------ Main Menu ------")
+            print("[0] Exit Application")
             print("[1] Select Account")
             print("[2] Open Account")
-            print("[3] Exit Application")
             choice = input("Please enter an option: ").strip()
 
-            if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
+            if choice == "[0]" or choice == "[0" or choice == "0]" or choice == "0":
+                break
+            elif choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 self.select_account(bank)
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 self.open_account(bank)
-            elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
-                break
             else:
                 print("Please enter valid number.")
                 print("")
@@ -40,12 +40,14 @@ class Application:
         while True:
             print("------ Open Account ------")
             print("Please select an option:")
+            print("[0] Exit Creation")
             print("[1] Chequing Account")
             print("[2] Savings Account")
-            print("[3] Exit Creation")
             choice = input("Please enter an option: ").strip()
 
-            if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
+            if choice == "[0]" or choice == "[0" or choice == "0]" or choice == "0":
+                break # Exit
+            elif choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 while True: # Name check loop
                     print("------ Name Entry ------")
                     name = input("Please enter your name or EXIT: ").strip()
@@ -58,7 +60,7 @@ class Application:
                 while True:
                     print("------ Starting Balance ------")
                     starting_balance = self.enter_amount()
-                    if starting_balance == "EXIT":
+                    if starting_balance == 0:
                         break
                     id = bank.create_new_id()
                     print(f"Your chequing account with ID #{id} was created!")
@@ -78,14 +80,12 @@ class Application:
                     print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.")
                     starting_balance = self.enter_amount()
-                    if starting_balance == "EXIT":
+                    if starting_balance == 0:
                         break
                     id = bank.create_new_id()
                     print(f"Your savings account with ID #{id} was created!")
                     bank.open_account("s", id, starting_balance, name) # Open chequing account.
                     break
-            elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
-                break # Exit
             else:
                 print("Please enter valid option.")
                 print("")
@@ -93,11 +93,15 @@ class Application:
     @staticmethod
     def enter_amount():
         while True:
-            amount = input("Enter the amount or EXIT: ")
-            amount = amount.upper().strip()
+            amount = input("Enter the amount or 0 to exit: ")
+            amount = amount.strip()
 
-            if amount == "EXIT":
-                return amount
+            try:
+                if float(amount) == 0.00 or int(amount) == 0:
+                    return 0
+            except:
+                print("Please enter a positive, non-zero number.")
+                continue
             
             if len(amount) == 0: # Restarts if void entry.
                 print("Please enter a positive, non-zero number.")
@@ -130,7 +134,8 @@ class Application:
 
     def show_account_menu(self, account):
         while True:
-            print("Welcome to account menu! Please select an option:")
+            print("------ Account Menu ------")
+            print(f"Welcome {account.get_account_holder_name()}! Please select an option:")
             print("[1] Check Balance")
             print("[2] Deposit")
             print("[3] Withdraw")
@@ -147,25 +152,26 @@ class Application:
                 amount = 0.00
                 while True:
                     amount = self.enter_amount()
-                    if amount == "EXIT":
-                        break
-                print(f"${amount} deposited!")
-                account.deposit(amount)
+                    if amount != "EXIT":
+                        print(f"${amount} deposited!")
+                        account.deposit(amount)
+                    break
+                
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 amount = 0.00
                 while True:
                     amount = self.enter_amount()
-                    if amount == "EXIT":
-                        break
-                    result = account.withdraw(amount)
-                    if result != True:
-                        if type(account) is Bank.ChequingAccount:
-                            print(f"Withdraw rejected: ${result} past overdraft limit.")
-                        elif type(account) is Bank.SavingsAccount:
-                            print(f"Withdraw rejected: ${result} past minimum balance.")
-                        continue
-                    print(f"${amount} withdrawn!")
+                    if amount != "EXIT":
+                        result = account.withdraw(amount)
+                        if result != True:
+                            if type(account) is Bank.ChequingAccount:
+                                print(f"Withdraw rejected: ${result} past overdraft limit.")
+                            elif type(account) is Bank.SavingsAccount:
+                                print(f"Withdraw rejected: ${result} past minimum balance.")
+                            continue
+                        print(f"${amount} withdrawn!")
                     break
+                    
             elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
                 break
             else:
