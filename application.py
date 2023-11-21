@@ -161,8 +161,9 @@ class Application:
                         if type(account) is Bank.ChequingAccount:
                             print(f"Withdraw rejected: ${result} past overdraft limit.")
                         elif type(account) is Bank.SavingsAccount:
-                            print(f"Withdraw rejected: ${result} past overdraft limit.")
+                            print(f"Withdraw rejected: ${result} past minimum balance.")
                         continue
+                    print(f"${amount} withdrawn!")
                     break
             elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
                 break

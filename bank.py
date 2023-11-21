@@ -5,8 +5,8 @@ class Bank:
     def __init__(self, bank_name):
         self._bank_name = bank_name
         self._accounts = []
-        #self._accounts = [ChequingAccount(1, "Tim"), ChequingAccount(3, "Jane"), ChequingAccount(5, "Tom"),
-        #                            SavingsAccount(2, "Tim"), SavingsAccount(4, "Jane"), SavingsAccount(6, "Tom")]
+        self._accounts = [ChequingAccount(1, "Tim"), SavingsAccount(2, "Tim"), ChequingAccount(3, "Jane"), 
+                                  SavingsAccount(4, "Jane"), ChequingAccount(5, "Tom"), SavingsAccount(6, "Tom")]
 
     def open_account(self, type, id, name, starting_balance):
         if type.lower() == "c":
