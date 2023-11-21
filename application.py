@@ -44,11 +44,17 @@ class Application:
             print("[3] Exit Creation")
             choice = input("Please enter an option: ").strip()
 
+            name = ""
+            rate_of_interest = 0.00
+            starting_balance = 0.00
+            minimum_balance = 0.00
+            overdraft_limit = 0.00
+
             if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 while True:
                     name = input("Please enter a name: ").strip()
                     if name != "": # Checks that entry is not null.
-                        bank.open_account("c", name) # Open chequing account.
+                        bank.open_account("c", name, rate_of_interest, starting_balance, overdraft_limit) # Open chequing account.
                         break
                     else:
                         print("Name cannot be blank.")
@@ -56,7 +62,7 @@ class Application:
                 while True:
                     name = input("Please enter a name: ").strip()
                     if name != "": # Checks that entry is not null.
-                        bank.open_account("s", name) # Open chequing account.
+                        bank.open_account("s", name, rate_of_interest, starting_balance, minimum_balance) # Open chequing account.
                         break
                     else:
                         print("Name cannot be blank.")
@@ -69,7 +75,7 @@ class Application:
     def valid_number_check():
         while True:
             amount = input("Enter the amount or EXIT: ")
-            amount = amount.upper().trim()
+            amount = amount.upper().strip()
 
             if amount == "EXIT":
                 return ""
