@@ -57,7 +57,7 @@ class Application:
                         break
                 while True:
                     print("------ Starting Balance ------")
-                    starting_balance = self.valid_number_check()
+                    starting_balance = self.enter_amount()
                     if starting_balance == "EXIT":
                         break
                     id = bank.create_new_id()
@@ -77,7 +77,7 @@ class Application:
                 while True:
                     print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.")
-                    starting_balance = self.valid_number_check()
+                    starting_balance = self.enter_amount()
                     if starting_balance == "EXIT":
                         break
                     id = bank.create_new_id()
@@ -90,7 +90,8 @@ class Application:
                 print("Please enter valid option.")
                 print("")
 
-    def valid_number_check():
+    @staticmethod
+    def enter_amount():
         while True:
             amount = input("Enter the amount or EXIT: ")
             amount = amount.upper().strip()
@@ -145,7 +146,7 @@ class Application:
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 amount = 0.00
                 while True:
-                    amount = self.valid_number_check()
+                    amount = self.enter_amount()
                     if amount == "EXIT":
                         break
                 print(f"${amount} deposited!")
@@ -153,7 +154,7 @@ class Application:
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 amount = 0.00
                 while True:
-                    amount = self.valid_number_check()
+                    amount = self.enter_amount()
                     if amount == "EXIT":
                         break
                     result = account.withdraw(amount)

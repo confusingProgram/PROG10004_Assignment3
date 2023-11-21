@@ -24,19 +24,19 @@ class Bank:
         id = 1 # This small block of code searches for an available account number when creating an account.
         while True:
             if self._accounts[id-1].get_account_number != id: # For example, it will check if the ID 1 is available, and check element 0.
-                break                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
+                return id                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
             id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
 
     def search_account(self, acc_num):
         for account in self._accounts:
-            if acc_num == str(account.get_account_number):
+            if acc_num == str(account.get_account_number()):
                 return account
         return ""
     
     def sort(self): # Sorts accounts by account_number from least to greatest.
         new_account_list = []
         for i in range(len(self._accounts)):
-            new_account_list.append("") # Creates "empty" new list which will house re-ordered accounts.
+            new_account_list.append(i) # Creates "empty" new list which will house re-ordered accounts.
 
         for account_A in self._accounts:
             new_index = len(self._accounts) - 1 # Account_A (account being checked) will be assumed to be last in new list.
