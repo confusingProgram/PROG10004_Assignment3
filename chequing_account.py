@@ -10,5 +10,3 @@ class ChequingAccount(Account):
             self.balance -= amount
         else:
             print("Transaction cannot be completed.")
-
-
