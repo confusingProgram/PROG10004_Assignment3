@@ -18,7 +18,6 @@ class Bank:
         id = 1 # This small block of code searches for an available account number when creating an account.
         while True:
             if self._accounts[id-1].get_account_number != id: # For example, it will check if the ID 1 is available, and check element 0.
-                print(f"ID #: {id}")
                 break                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
             id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
 
