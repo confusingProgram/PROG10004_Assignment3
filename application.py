@@ -51,13 +51,18 @@ class Application:
             elif choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 while True: # Name check loop
                     print("------ Name Entry ------")
-                    name = input("Please enter your name or EXIT: ").strip()
+                    name = input("Please enter your name or 0 to exit: ").strip()
                     if name == "":
                         print("Name cannot be blank.")
                         continue
                     break
-                if name.upper() == "EXIT":
-                        break
+
+                try:
+                    if float(name) == 0.00: # Exit name entry
+                        continue
+                except:
+                    pass
+
                 while True:
                     print("------ Starting Balance ------")
                     starting_balance = Application.enter_amount()
@@ -70,19 +75,27 @@ class Application:
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 while True:
                     print("------ Name Entry ------")
-                    name = input("Please enter your name or EXIT: ").strip()
+                    name = input("Please enter your name or 0 to exit: ").strip()
                     if name == "": # Checks if entry is null.
                         print("Name cannot be blank.")
                         continue
                     break
-                if name.upper() == "EXIT":
-                        break
+
+                try:
+                    if float(name) == 0.00: # Exit name entry
+                        continue
+                except:
+                    pass
+
                 while True:
                     print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.")
                     starting_balance = Application.enter_amount()
                     if starting_balance == 0:
                         break
+                    if starting_balance < 1000:
+                        print("Please enter $1000.00 or higher.")
+                        continue
                     id = bank.create_new_id()
                     print(f"Your savings account with ID #{id} was created!")
                     bank.open_account("s", id, starting_balance, name) # Open chequing account.
@@ -101,7 +114,6 @@ class Application:
                 if float(amount) == 0.00:
                     return 0
             except:
-                print('HAHAH')
                 print("Please enter a positive, non-zero number.")
                 continue
             
