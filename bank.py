@@ -1,4 +1,6 @@
+import chequing_account
 from chequing_account import ChequingAccount
+import savings_account
 from savings_account import SavingsAccount
 
 class Bank:
@@ -14,7 +16,7 @@ class Bank:
         
         """
 
-    def open_account(self, type, id, name, starting_balance):
+    def open_account(self, type, id, starting_balance, name):
         if type.lower() == "c":
             self._accounts.append(ChequingAccount(id,  starting_balance, name, 1.01, 500))
         elif type.lower == "s":
@@ -23,20 +25,23 @@ class Bank:
     def create_new_id(self):
         id = 1 # This small block of code searches for an available account number when creating an account.
         while True:
-            if self._accounts[id-1].get_account_number != id: # For example, it will check if the ID 1 is available, and check element 0.
-                break                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
-            id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
+            if id == len(self._accounts):
+                return id+1
+            else:
+                if self._accounts[id-1].get_account_number() != id: # For example, it will check if the ID 1 is available, and check element 0.
+                    return id                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
+                id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
 
     def search_account(self, acc_num):
         for account in self._accounts:
-            if acc_num == str(account.get_account_number):
+            if acc_num == str(account.get_account_number()):
                 return account
         return ""
     
     def sort(self): # Sorts accounts by account_number from least to greatest.
         new_account_list = []
         for i in range(len(self._accounts)):
-            new_account_list.append("") # Creates "empty" new list which will house re-ordered accounts.
+            new_account_list.append(i) # Creates "empty" new list which will house re-ordered accounts.
 
         for account_A in self._accounts:
             new_index = len(self._accounts) - 1 # Account_A (account being checked) will be assumed to be last in new list.

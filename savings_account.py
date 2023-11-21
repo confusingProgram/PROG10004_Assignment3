@@ -6,8 +6,8 @@ class SavingsAccount(Account):
         self._minimum_balance = minimum_balance # We'll set the standard minimum balance to $1000.00
 
     def withdraw(self, amount):
-        if amount <= self.balance - self._minimum_balance:
-            self.balance -= amount
-            return True
+        if amount <= (self._current_balance - self._minimum_balance):
+            self._current_balance -= amount
+            return "True"
         else:
-            return amount - (self.balance + self._minimum_balance)
+            return amount - self._minimum_balance
