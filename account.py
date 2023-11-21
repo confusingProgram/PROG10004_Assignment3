@@ -25,18 +25,10 @@ class Account:
         self._interest_rate = new_interest_rate
 
     def deposit(self, amount):
-        if amount > 0:
             self._balance += amount
-            return True
-        else:
-            print("Invalid deposit amount.")
-            return False
 
     def withdraw(self, amount):
-        if amount <= self.balance:
             self.balance -= amount
-        else:
-            print("Insufficient balance.")
 
     def calculate_interest(self):
         return self._balance * self._interest_rate / 100

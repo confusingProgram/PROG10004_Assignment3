@@ -62,7 +62,7 @@ class Application:
                         break
                     id = bank.create_new_id()
                     print(f"Your chequing account with ID #{id} was created!")
-                    bank.open_account("c", id, name, starting_balance) # Open chequing account.
+                    bank.open_account("c", id, starting_balance, name) # Open chequing account.
                     break
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 while True:
@@ -82,7 +82,7 @@ class Application:
                         break
                     id = bank.create_new_id()
                     print(f"Your savings account with ID #{id} was created!")
-                    bank.open_account("s", id, name, starting_balance) # Open chequing account.
+                    bank.open_account("s", id, starting_balance, name) # Open chequing account.
                     break
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break # Exit
@@ -161,8 +161,9 @@ class Application:
                         if type(account) is Bank.ChequingAccount:
                             print(f"Withdraw rejected: ${result} past overdraft limit.")
                         elif type(account) is Bank.SavingsAccount:
-                            print(f"Withdraw rejected: ${result} past overdraft limit.")
+                            print(f"Withdraw rejected: ${result} past minimum balance.")
                         continue
+                    print(f"${amount} withdrawn!")
                     break
             elif choice == "[4]" or choice == "[4" or choice == "4]" or choice == "4":
                 break
