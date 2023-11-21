@@ -44,28 +44,40 @@ class Application:
             print("[3] Exit Creation")
             choice = input("Please enter an option: ").strip()
 
-            name = ""
-            rate_of_interest = 0.00
-            starting_balance = 0.00
-            minimum_balance = 0.00
-            overdraft_limit = 0.00
-
             if choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
-                while True:
-                    name = input("Please enter a name: ").strip()
-                    if name != "": # Checks that entry is not null.
-                        bank.open_account("c", name, rate_of_interest, starting_balance, overdraft_limit) # Open chequing account.
-                        break
-                    else:
+                while True: # Name check loop
+                    name = input("Please enter your name or EXIT: ").strip()
+                    if name == "":
                         print("Name cannot be blank.")
+                        continue
+                    break
+                while True:
+                    if name.upper() == "EXIT":
+                        break
+                    print("Starting balance.")
+                    starting_balance = self.valid_number_check()
+                    if starting_balance == "EXIT":
+                        break
+                    print("Your chequing account was created!")
+                    bank.open_account("c", bank.create_new_id(), name, starting_balance) # Open chequing account.
+                    break
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 while True:
-                    name = input("Please enter a name: ").strip()
-                    if name != "": # Checks that entry is not null.
-                        bank.open_account("s", name, rate_of_interest, starting_balance, minimum_balance) # Open chequing account.
-                        break
-                    else:
+                    name = input("Please enter your name or EXIT: ").strip()
+                    if name == "": # Checks if entry is null.
                         print("Name cannot be blank.")
+                        continue
+                    break
+                while True:
+                    if name.upper() == "EXIT":
+                        break
+                    print("Starting balance must be $1000.00 or higher.")
+                    starting_balance = self.valid_number_check()
+                    if starting_balance == "EXIT":
+                        break
+                    print("Your savings account was created!")
+                    bank.open_account("s", bank.create_new_id(), name, starting_balance) # Open chequing account.
+                    break
             elif choice == "[3]" or choice == "[3" or choice == "3]" or choice == "3":
                 break # Exit
             else:
@@ -78,31 +90,35 @@ class Application:
             amount = amount.upper().strip()
 
             if amount == "EXIT":
-                return ""
+                return amount
+            
+            if len(amount) == 0: # Restarts if void entry.
+                print("Please enter a positive, non-zero number.")
+                continue
 
-            if("-") in amount or amount.count(".") > 1: # Restarts if negative detected or if too many decimals
+            if("-") in amount or amount.count(".") > 1: # Restarts if negative detected or if too many decimals.
                 print("Please enter a positive, non-zero number.")
                 continue
 
             valid = True
             array = amount.split(".") 
-            for str in array: # Detects if there are any non-digits
+            for str in array: # Detects if there are any non-digits.
                 if str.isdigit() == False:
                     valid = False
                     break
 
-            if valid == False: # Restarts if any non-digits
+            if valid == False: # Restarts if any non-digits.
                 print("Please enter a positive, non-zero number.")
                 continue
             
-            if len(array) > 1: #Assuming the user inserts a price with a decimal value
-                if len(array[1]) > 2: # Restarts if there are too many decimals
+            if len(array) > 1: #Assuming the user inserts a price with a decimal value.
+                if len(array[1]) > 2: # Restarts if there are too many decimals.
                     print("Please limit the amount to 2 decimal places.")
                     continue
 
-            if valid == True: # If correct, proceeds
+            if valid == True: # If correct, proceeds.
                 return float(amount)
-            else: # Final catch statement just in case
+            else: # Final catch statement just in case.
                 print("Please enter a positive, non-zero number.")
 
     def show_account_menu(self, account):
