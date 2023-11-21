@@ -8,19 +8,19 @@ class Bank:
         #self._accounts = [ChequingAccount(1, "Tim"), ChequingAccount(3, "Jane"), ChequingAccount(5, "Tom"),
         #                            SavingsAccount(2, "Tim"), SavingsAccount(4, "Jane"), SavingsAccount(6, "Tom")]
 
-    def open_account(self, type, name, rate_of_interest, starting_balance, minimum_balance, overdraft_limit):
+    def open_account(self, type, id, name, starting_balance):
+        if type.lower() == "c":
+            self._accounts.append(ChequingAccount(id, name, starting_balance, 1.01, 500))
+        elif type.lower == "s":
+            self._accounts.append(SavingsAccount(id, name, starting_balance, 1.10, 1000))
+        
+    def create_new_id(self):
         id = 1 # This small block of code searches for an available account number when creating an account.
         while True:
             if self._accounts[id-1].get_account_number != id: # For example, it will check if the ID 1 is available, and check element 0.
+                print(f"ID #: {id}")
                 break                                                                 # If element 0 has the ID 1, then the ID number will be incremented, and element 1 will be checked
             id = id + 1                                                               # So on so forth until an ID number is not in use. (Ideally, they are sorted by ID number from least to greatest.)
-            
-        if type.lower() == "c":
-            self._accounts.append(ChequingAccount(id, name, rate_of_interest, starting_balance, overdraft_limit))
-            pass
-        elif type.lower == "s":
-            self._accounts.append(SavingsAccount(id, name, rate_of_interest, starting_balance, minimum_balance))
-            pass
 
     def search_account(self, acc_num):
         for account in self._accounts:
