@@ -6,8 +6,8 @@ class ChequingAccount(Account):
         self._overdraft_limit = overdraft_limit # We'll set the standard overdraft_limit to $500
 
     def withdraw(self, amount):
-        if amount <= (self._current_balance + self._overdraft_limit):
+        if amount <= (self._current_balance + self._overdraft_limit): 
             self._current_balance -= amount
-            return "True"
+            return "True" # If successful, returns "True" for confirmation purposes.
         else:
-            return amount - self._overdraft_limit - self._current_balance
+            return amount - self._overdraft_limit - self._current_balance # If unsuccessful, return the excess amount.
