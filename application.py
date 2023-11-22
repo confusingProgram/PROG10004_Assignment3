@@ -9,6 +9,7 @@ class Application:
         print(f"Thank you for using {bank._bank_name}!")
         while True:
             bank.sort()
+            print("")
             print("------ Main Menu ------")
             print("[0] Exit Application")
             print("[1] Select Account")
@@ -27,6 +28,7 @@ class Application:
     
     def select_account(self, bank):
         while True:
+            print("")
             print("------ Select Account ------")
             id = input("Please enter the account number, or 0 to exit: ").strip()
             account = bank.search_account(id)
@@ -39,6 +41,7 @@ class Application:
 
     def open_account(self, bank):
         while True:
+            print("")
             print("------ Open Account ------")
             print("Please select an option:")
             print("[0] Exit Creation")
@@ -51,6 +54,7 @@ class Application:
 
             elif choice == "[1]" or choice == "[1" or choice == "1]" or choice == "1":
                 while True: # Name check loop
+                    print("")
                     print("------ Name Entry ------")
                     name = input("Please enter your name or 0 to exit: ").strip()
                     if name == "": # Checks if entry is null.
@@ -65,6 +69,7 @@ class Application:
                     pass
 
                 while True:
+                    print("")
                     print("------ Starting Balance ------")
                     starting_balance = Application.enter_amount() # enter_amount() is a method that controls how numbers are entered, i.e., normal "money" amount.
                     if starting_balance == 0: # If input is equal to 0, goes back to ---- Open Account ---- menu.
@@ -76,6 +81,7 @@ class Application:
 
             elif choice == "[2]" or choice == "[2" or choice == "2]" or choice == "2":
                 while True:
+                    print("")
                     print("------ Name Entry ------")
                     name = input("Please enter your name or 0 to exit: ").strip()
                     if name == "": # Checks if entry is null.
@@ -90,6 +96,7 @@ class Application:
                     pass
 
                 while True:
+                    print("")
                     print("------ Starting Balance ------")
                     print("Starting balance must be $1000.00 or higher.") 
                     starting_balance = Application.enter_amount()
@@ -108,6 +115,7 @@ class Application:
 
     def show_account_menu(self, account):
         while True:
+            print("")
             print("------ Account Menu ------")
             print(f"Welcome {account.get_account_holder_name()}! Please select an option:")
             print("[0] Exit Account")
