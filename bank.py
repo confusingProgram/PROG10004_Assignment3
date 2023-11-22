@@ -6,8 +6,8 @@ from savings_account import SavingsAccount
 class Bank:
     def __init__(self, bank_name):
         self._bank_name = bank_name # Hard-coded chequing account and saving account belonging to Tim, Jane, and Hank.
-        self._accounts = [ChequingAccount(1, -200.00,"Tim", 1.01, 500.00), SavingsAccount(2, 2000.00, "Tim", 1.10, 1000.00), 
-                                   ChequingAccount(3, 1100.39,"Jane", 1.01, 500.00), SavingsAccount(4, 2575.00, "Jane", 1.10, 1000.00),
+        self._accounts = [ChequingAccount(1, -200.00,"Tim", 1.01, 500.00), SavingsAccount(2, 2000.00, "Tim", 1.10, 1000.00),
+                                   ChequingAccount(3, 1100.39,"Jane", 1.01, 500.00),  SavingsAccount(4, 2575.00, "Jane", 1.10, 1000.00),
                                    ChequingAccount(5, 500.67,"Hank", 1.01, 500.00), SavingsAccount(6, 6000.00, "Hank", 1.10, 1000.00)]
 
     def open_account(self, type, id, starting_balance, name):
@@ -32,16 +32,5 @@ class Bank:
         return "" # Otherwise, return null.
     
     def sort(self): # Sorts accounts by account_number from least to greatest.
-        new_account_list = []
-        for i in range(len(self._accounts)):
-            new_account_list.append(i) # Creates "empty" new list which will house re-ordered accounts.
-
-        for account_A in self._accounts:
-            new_index = len(self._accounts) - 1 # Account_A (account being checked) will be assumed to be last in new list.
-
-            for compare_account in self._accounts:
-                if account_A.get_account_number() < compare_account.get_account_number(): # Account_A is compared to every other account in the pre-sorted list.
-                    new_index = new_index - 1 # If account_A has a lower account number than the account being compared, account_A will be placed earlier in sorted list.
-            new_account_list[new_index] = account_A # Once comparing is completed, account_A is added to sorted list according to their new index.
-
-        self._accounts = new_account_list # The list of accounts is defined as the new list.
+        self._accounts.sort(key = lambda account: account.get_account_number())
+        
