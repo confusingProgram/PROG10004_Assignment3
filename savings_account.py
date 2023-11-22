@@ -8,6 +8,7 @@ class SavingsAccount(Account):
     def withdraw(self, amount):
         if amount <= (self._current_balance - self._minimum_balance):
             self._current_balance -= amount
-            return "True"
+            return "True" # If successful, returns "True" for confirmation purposes.
         else:
-            return amount - self._minimum_balance
+            return amount - (self._current_balance - self._minimum_balance) # If unsuccessful, return the excess amount.
+            
