@@ -106,48 +106,6 @@ class Application:
                 print("Please enter valid option.")
                 print("")
 
-    @staticmethod
-    def enter_amount(): # Used when inputting a money amount. Controls and makes sure that inputs are proper.
-        while True:
-            amount = input("Enter the amount or 0 to exit: ")
-            amount = amount.strip()
-
-            try:
-                if float(amount) == 0.00: # If the amount entered is equal to 0, then a 0 will be returned (used for exiting loops).
-                    return 0
-            except:
-                print("Please enter a positive, non-zero number.")
-                continue
-            
-            if len(amount) == 0: # Restarts if void entry.
-                print("Please enter a positive, non-zero number.")
-                continue
-
-            if("-") in amount or amount.count(".") > 1: # Restarts if negative detected or if too many decimals.
-                print("Please enter a positive, non-zero number.")
-                continue
-
-            valid = True
-            array = amount.split(".") 
-            for str in array: # Detects if there are any non-digits.
-                if str.isdigit() == False:
-                    valid = False
-                    break
-
-            if valid == False: # Restarts if any non-digits.
-                print("Please enter a positive, non-zero number.")
-                continue
-            
-            if len(array) > 1: #Assuming the user inserts a price with a decimal value.
-                if len(array[1]) > 2: # Restarts if there are too many decimals.
-                    print("Please limit the amount to 2 decimal places.")
-                    continue
-
-            if valid == True: # If correct, proceeds.
-                return float(amount)
-            else: # Final catch statement just in case.
-                print("Please enter a positive, non-zero number.")
-
     def show_account_menu(self, account):
         while True:
             print("------ Account Menu ------")
@@ -190,7 +148,49 @@ class Application:
                 print("")
 
     def run(self, bank):
-        self.show_main_menu(bank)
+        self.show_main_menu(bank)   
+
+    @staticmethod
+    def enter_amount(): # Used when inputting a money amount. Controls and makes sure that inputs are proper.
+        while True:
+            amount = input("Enter the amount or 0 to exit: ")
+            amount = amount.strip()
+
+            try:
+                if float(amount) == 0.00: # If the amount entered is equal to 0, then a 0 will be returned (used for exiting loops).
+                    return 0
+            except:
+                print("Please enter a positive, non-zero number.")
+                continue
+            
+            if len(amount) == 0: # Restarts if void entry.
+                print("Please enter a positive, non-zero number.")
+                continue
+
+            if("-") in amount or amount.count(".") > 1: # Restarts if negative detected or if too many decimals.
+                print("Please enter a positive, non-zero number.")
+                continue
+
+            valid = True
+            array = amount.split(".") 
+            for str in array: # Detects if there are any non-digits.
+                if str.isdigit() == False:
+                    valid = False
+                    break
+
+            if valid == False: # Restarts if any non-digits.
+                print("Please enter a positive, non-zero number.")
+                continue
+            
+            if len(array) > 1: #Assuming the user inserts a price with a decimal value.
+                if len(array[1]) > 2: # Restarts if there are too many decimals.
+                    print("Please limit the amount to 2 decimal places.")
+                    continue
+
+            if valid == True: # If correct, proceeds.
+                return float(amount)
+            else: # Final catch statement just in case.
+                print("Please enter a positive, non-zero number.")
 
     @staticmethod
     def format_amount(amount): # This method fixes the formatting involving negative numbers, dollar signs, and $x.x0, and converts to string.
